@@ -39,11 +39,29 @@ app.post("/view",(req,res)=>{
 
 
 app.post("/search",(req,res)=>{
-    res.send("welcome to my contact page")
+    let input=req.body
+    coursemodel.find(input).then(
+        (data)=>{
+            res.json(data)
+        }
+    ).catch(
+        (error)=>{
+            req.json(error)
+        }
+    )
 })
 
 app.post("/delete",(req,res)=>{
-    res.send("test")
+    let input=req.body
+    coursemodel.findByIdAndDelete(input._id).then(
+        (response)=>{
+            res.json({"status":"success"})
+        }
+    ).catch(
+        (error)=>{
+            res.json({"status":"error"})
+        }
+    )
 })
 
 app.listen(8084,()=>{
